@@ -1,3 +1,21 @@
 ---
-title: "Draft: Data Documentation"
+bibliography: references.bib
 ---
+
+```         
+Data Documentation:
+```
+
+@biennial set R64 Detailed event or exposure by industry division
+
+The US Bureau of Labor Statistics collected data for 2021 and 2022 from injury reports from businesses in the US. The data collected helps to make insights that can reduce injuries in the workplace. The data contains information about injury-related events and how many events happen in various good-producing and service-providing industries. Employers must file injury data due to OSHA laws to disclose workplace injuries and illnesses.
+
+The data is in Excel and contains entries with 0's. The injury events are in the first column, and the number of these events in various industries is in the other columns. Comparing the number of injuries in the goods vs services sector would be useful to see if injuries happen more often between non-office and office workers. Data analysis can be run to see if specific industries are correlated to certain injury events. Additionally, this data could help predict the likelihood of injury events and detect trends to see if improvements are happening.
+
+@biennial set R67 Detailed nature by number of days by case type
+
+This data source shows the severity of the hundreds of various occupational injuries by the days of work missed. The first column shows the nature of the injury, and the other columns show the number of cases with a corresponding number of missed days. This dataset is from the US Bureau of Labor Statistics, which gets its data from law-required reporting from US workplaces. The data is helpful as it can illustrate how severe and common specific injuries are. It would be essential to determine what type of injuries most frequently occur in an office versus a non-office setting. Finding the most common and severe injuries by number of days through data analysis would be a priority.
+
+@biennial R10 Detailed occupation by selected parts of the body affected
+
+This dataset is also from OSHA and the BLS office injury page, showing the number of injuries and body parts per occupation. Employers report data by law, and the dataset was published in 2023. The first column contains thousands of occupations, the count of total cases, and a breakdown of body parts where they occur for each occupation. The data illustrates what body parts are injury-prone for office vs. nonoffice occupations. The data analysis could spot trends in body part injuries to create policy changes to prevent certain injuries from occurring. Regression could also predict the likelihood of a particular injury occurring.
