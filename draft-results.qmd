@@ -1,4 +1,15 @@
 ---
-title: "Draft: Results"
+title: "Draft Results"
+format: html
 ---
+R
 
+Non-office workers experience a significantly higher number, 1.6 million more, of workplace injuries resulting in days away from work than office workers. This is expected as industrial and manufacturing jobs involve more physical labor and dangerous environments. However, office workers still account for a large number of injury cases of 630,237 cases. This number suggests that office safety policies are still important.
+
+![Figure 2](totalinjury.png){width="305"}
+
+Figure 2 illustrates the difference between injury cases for office and non-office workers. Figure 2 emphasizes the disparity between the two groups and shows the need for potential safety acts.
+
+However, office workers fall at a higher rate of .22 compared to non-office workers .19 when taken proportionally. Additionally, the severity of falls that office workers experience are worse than non-office workers. When looking at figure 4 you can also see that office workers miss more 50 days of work on average when falls occur. This result could be due to ergonomic issues or lack of safety training.
+
+![Figure 3](fall_rate_per_worker.png)---
