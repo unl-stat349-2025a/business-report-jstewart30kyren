@@ -1,0 +1,7 @@
+---
+title: "Introduction"
+format: html
+---
+
+Safety in the workplace is a problem primarily associated with industrial and manufacturing environments due to the straining nature of physical labor and exposure to dangerous machinery and hazardous substances. However, recent discoveries examining office-related injuries challenge the notion that office environments are inherently low-risk. An article written by Aftermath claims that office workers are surprisingly susceptible to injuries, particularly slips, trips, and falls. These injuries can result in prolonged absences from work and significant costs to employers, especially if workers' compensation is involved.
+In response, this report evaluates the risks of workplace injuries between office and non-office workers using data from the Bureau of Labor Statistics (BLS) through record-keeping logs kept by employers throughout the year. By comparing the probability and severity of injuries in both settings, this analysis aims to determine whether more safety protocols should be implemented in office environments to reduce overlooked risks.

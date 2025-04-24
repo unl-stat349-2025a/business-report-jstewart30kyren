@@ -3,20 +3,19 @@ project:
   output-dir: docs
 
 book:
-  title: "Evaluation of <Not Safe for Work>"
+  title: "Evaluation of Not Safe for Work"
   author: "Jack Stewart"
   page-footer:
     left: "Copyright 2025, Jack Stewart"
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
-    - references.qmd
+    - Introduction.qmd
+    - Methods.qmd
+    - Results.qmd
+    - Conclusion.qmd
+    - References.qmd
   appendices:
-    - draft-data-doc.qmd
-    - draft-results.qmd
-    - draft-intro-conclusions.qmd
-    - draft-exec-summary.qmd
+    - Data Documentation.qmd
 
 bibliography: references.bib
 

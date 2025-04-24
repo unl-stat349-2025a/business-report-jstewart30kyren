@@ -1,0 +1,45 @@
+---
+title: "Methods"
+format: html
+---
+
+This analysis uses workplace injury data published by the U.S. Bureau of Labor Statistics (BLS) for the years 2021–2022. Data were drawn from three BLS Excel tables:
+
+-   **R10**: Case and Demographic Characteristics – Nature of Injury
+-   **R64**: Event or Exposure leading to Injury
+-   **R67**: Occupation of Injured Worker
+
+To compare risks across worker types, office workers are defined as Administrative Support, Professional, and Management Occupations. Non-office workers are defined as Production, Maintenance, Construction, and Transportation roles.
+
+Injury incidence counts and fall-specific injuries for each group and median days away from work, as a representation for severity, are calculated.
+
+The data are processed and analyzed using R to create summary statistics and figures for comparison.
+
+Data cleaning steps included:
+
+1. Importing each Excel sheet
+2. Standardizing column names and formats
+3. Filtering for rows where injury data were available
+4. Mapping occupations to either "Office" or "Non-office"
+
+```{r}
+library(readxl)
+library(dplyr)
+
+# Example: Reading and cleaning R67 data
+data_r67 <- read_excel("case-and-demographic-characteristics-table-r67-2021-2022.xlsx", skip = 4)
+
+data_cleaned <- data_r67 %>%
+  filter(!is.na(...1)) %>%
+  rename(Occupation = ...1) %>%
+  mutate(Type = case_when(
+    grepl("(Administrative|Clerical|Accountant|Receptionist|Customer Service)", Occupation, ignore.case = TRUE) ~ "Office",
+    TRUE ~ "Non-office"
+  ))
+```
+
+### Statistical Analysis
+
+Descriptive statistics were computed to summarize total injuries and injury types by occupation type. Proportional rates of falls and median days away from work were calculated to assess severity. Data were visualized using bar plots and boxplots in `ggplot2`.
+
+Limitations include potential underreporting of injuries and ambiguity in occupation classification. Future studies could incorporate more granular occupational data or employer-specific logs for improved accuracy.
