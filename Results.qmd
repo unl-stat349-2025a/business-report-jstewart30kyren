@@ -2,72 +2,218 @@
 title: "Results"
 format: html
 ---
-R
 
-Non-office workers experience a significantly higher number, 1.6 million more, of workplace injuries resulting in days away from work than office workers. This is expected as industrial and manufacturing jobs involve more physical labor and dangerous environments. However, office workers still account for a large number of injury cases of 630,237 cases. This number suggests that office safety policies are still important.
+# Likelihood of Injuries {.unnumbered}
 
-![Figure 2](totalinjury.png){width="305"}
+The R75 data assesses the injury likelihood, measured by incidence rates by events across major industry sectors. Industry sectors are classified as goods-producing (non-office) and service-providing (office). Annualized incidence rates are per 10,000 full-time workers.
 
-Figure 2 illustrates the difference between injury cases for office and non-office workers. Figure 2 emphasizes the disparity between the two groups and shows the need for potential safety acts.
+```{r echo=FALSE}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tibble)
+  library(ggplot2)
+  library(readxl)
+})
 
-However, office workers fall at a higher rate of .22 compared to non-office workers .19 when taken proportionally. Additionally, the severity of falls that office workers experience are worse than non-office workers. When looking at figure 4 you can also see that office workers miss more 50 days of work on average when falls occur. This result could be due to ergonomic issues or lack of safety training.
 
-![Figure 3](fall_rate_per_worker.png)---
+# Read and clean data
+raw <- suppressMessages(read_excel("case-and-demographic-characteristics-table-r75-2021-2022.xlsx", skip = 1))
+names(raw) <- make.names(names(raw), unique = TRUE)
+
+# Verify column names
+# print(names(raw))
+
+# Define non-office and office columns
+nonoffice_cols <- c("Goods.producing...5", "Goods.producing...6", "Goods.producing...7")  # Natural resources, construction, manufacturing
+office_cols <- c("Service.providing...11", "Service.providing...12", "Service.providing...13", "Service.providing...14")  # Information, financial, prof/business, education/health
+
+# Function to clean numeric columns
+clean_numeric <- function(x) {
+  x <- gsub(",", "", x)
+  x <- na_if(x, "-")
+  as.numeric(x)
+}
+
+raw[nonoffice_cols] <- suppressWarnings(lapply(raw[nonoffice_cols], clean_numeric))
+raw[office_cols] <- suppressWarnings(lapply(raw[office_cols], clean_numeric))
+
+# --- TOTAL INJURIES ANALYSIS ---
+office_total <- sum(unlist(raw[office_cols]), na.rm = TRUE)
+nonoffice_total <- sum(unlist(raw[nonoffice_cols]), na.rm = TRUE)
+combined_total <- office_total + nonoffice_total
+props_total <- c(office_total / combined_total, nonoffice_total / combined_total)
+
+injury_table_total <- matrix(c(office_total, nonoffice_total), nrow = 2, byrow = TRUE)
+dimnames(injury_table_total) <- list(Group = c("Office", "Non-Office"), Outcome = "Injured")
+chi_total <- chisq.test(injury_table_total)
+#print("Chi-squared test for total injuries:")
+#print(chi_total)
+
+# Plot total injuries
+df_total <- tibble(
+  WorkerType = c("Office", "Non-Office"),
+  Proportion = props_total
+)
+
+#plot
+
+ggplot(df_total, aes(x = WorkerType, y = Proportion, fill = WorkerType)) +
+  geom_col(width = 0.6, show.legend = FALSE) +
+  geom_text(aes(label = sprintf("%.1f%%", Proportion * 100)), vjust = -0.5, size = 4.5) +
+  labs(title = "Figure 1: Total Injury Proportions by Worker Type (2021–2022, R75)",
+       y = "Proportion of Injuries", x = "Worker Type") +
+  theme_minimal()
+```
+Figure 1 presents the proportion of total reported injuries among office and non-office workers based on the R75 dataset from 2021–2022.
+
+Non-office workers account for 59.1% of all injuries, while office workers comprise 40.9%. A Chi-squared test for given proportions shows a strong statistically significant difference.
+
+- **Chi-squared = 288.13**, **df = 1**, **p < 2.2e-16**
+```{r echo=FALSE}
+# --- FALL INJURIES ONLY ---
+falls_row <- grep("Fall", raw$Event.or.exposure, ignore.case = TRUE)
+
+falls_office_total <- sum(unlist(raw[falls_row, office_cols]), na.rm = TRUE)
+falls_nonoffice_total <- sum(unlist(raw[falls_row, nonoffice_cols]), na.rm = TRUE)
+falls_combined <- falls_office_total + falls_nonoffice_total
+props_falls <- c(falls_office_total / falls_combined, falls_nonoffice_total / falls_combined)
+
+injury_table_falls <- matrix(c(falls_office_total, falls_nonoffice_total), nrow = 2, byrow = TRUE)
+dimnames(injury_table_falls) <- list(Group = c("Office", "Non-Office"), Outcome = "Falls")
+chi_falls <- chisq.test(injury_table_falls)
+#print("Chi-squared test for fall injuries:")
+#print(chi_falls)
 
 
 
-## Methods
+# Plot fall injuries
+df_falls <- tibble(
+  WorkerType = c("Office", "Non-Office"),
+  Proportion = props_falls
+)
 
-### Data Sources
+ggplot(df_falls, aes(x = WorkerType, y = Proportion, fill = WorkerType)) +
+  geom_col(width = 0.6, show.legend = FALSE) +
+  geom_text(aes(label = sprintf("%.1f%%", Proportion * 100)), vjust = -0.5, size = 4.5) +
+  labs(title = " Figure 2: Fall Injury Proportions by Worker Type (2021–2022, R75)",
+       y = "Proportion of Fall Injuries", x = "Worker Type") +
+  theme_minimal()
 
-This report uses data published by the **Bureau of Labor Statistics (BLS)** for the year 2021–2022. Three main tables were used:
 
-- **Table R10**: Injury cases by event or exposure and age
-- **Table R64**: Injury cases by nature of injury and occupation
-- **Table R67**: Injury cases by event or exposure and occupation
+```
+Figure 2 presents the proportion of total reported falls among office and non-office workers based on the R75 dataset from 2021–2022.
 
-These tables were accessed via the BLS website and downloaded in Excel format. The primary focus was on identifying:
+Non-office workers account for 65.3% of all falls, while office workers comprise 34.7%. A Chi-squared test for given proportions illustrates a strong statistically significant difference between worker types.
+- **Chi-squared = 162.09**, **df = 1**, **p < 2.2e-16**
 
-- The **frequency** of injuries among office and non-office workers
-- The **event type**, especially falls, slips, and trips
-- The **severity**, measured by median days away from work
+# Severity of injuries {.unnumbered}
+The R65 data assesses injury severity, measured by the median days missed due to injury, across different industry sectors. Industry sectors were classified into "Goods Producing" (Non office: rows A5 to A566) and "Service Providing" (Office: row A567 onward). 
 
-### Classification of Occupation Types
-
-Occupations were categorized into two groups:
-
-- **Office workers**: administrative assistants, accountants, customer service, clerical roles, and similar
-- **Non-office workers**: construction, transportation, installation, maintenance, manufacturing, and related labor-intensive roles
-
-Classification was based on title keyword matching and manual review of BLS categories.
-
-### Data Preparation
-
-The analysis was conducted in R. Data cleaning steps included:
-
-1. Importing each Excel sheet
-2. Standardizing column names and formats
-3. Filtering for rows where injury data were available
-4. Mapping occupations to either "Office" or "Non-office"
-
-```{r}
+Descriptive statistics revealed the following:
+```{r echo=FALSE}
 library(readxl)
 library(dplyr)
+library(ggplot2)
+library(knitr)
+# Load the R65 data (skip first 4 rows where headers repeat)
+raw <- read_excel("case-and-demographic-characteristics-table-r65-2021-2022.xlsx", skip = 4)
 
-# Example: Reading and cleaning R67 data
-data_r67 <- read_excel("case-and-demographic-characteristics-table-r67-2021-2022.xlsx", skip = 4)
+# View column names
+#names(raw)
 
-data_cleaned <- data_r67 %>%
-  filter(!is.na(...1)) %>%
-  rename(Occupation = ...1) %>%
-  mutate(Type = case_when(
-    grepl("(Administrative|Clerical|Accountant|Receptionist|Customer Service)", Occupation, ignore.case = TRUE) ~ "Office",
-    TRUE ~ "Non-office"
+# Clean column names
+names(raw) <- make.names(names(raw), unique = TRUE)
+
+# Confirm the median days column (last column)
+median_col <- tail(names(raw), 1)  # Should be 'Median.days'
+
+# Add an index to identify row numbers
+raw <- raw %>%
+  mutate(row_id = row_number())
+
+# Classify industry type
+raw <- raw %>%
+  mutate(IndustryType = case_when(
+    row_id >= 1 & row_id <= 562 ~ "Goods Producing",    # A5–A566 -> 1–562 in R (after skip=4)
+    row_id >= 563 ~ "Service Providing",
+    TRUE ~ NA_character_
   ))
+
+# Clean median days column
+clean_numeric <- function(x) {
+  x <- gsub(",", "", as.character(x))
+  x <- na_if(x, "-")
+  as.numeric(x)
+}
+raw$MedianDays <- clean_numeric(raw[[median_col]])
+
+# Filter out rows without classification or missing data
+clean_data <- raw %>%
+  filter(!is.na(IndustryType), !is.na(MedianDays))
+# descriptive
+# Summary statistics by industry type
+summary_stats <- clean_data %>%
+  group_by(IndustryType) %>%
+  summarise(
+    Count = n(),
+    Mean = mean(MedianDays, na.rm = TRUE),
+    Median = median(MedianDays, na.rm = TRUE),
+    SD = sd(MedianDays, na.rm = TRUE),
+    Min = min(MedianDays, na.rm = TRUE),
+    Max = max(MedianDays, na.rm = TRUE)
+  )
+kable(summary_stats, caption = "Descriptive Statistics of Median Days Missed by Industry Type")
 ```
+The summary statistics indicate that, on average, injuries in service-providing sectors are associated with a higher number of median days missed than in goods-producing sectors.
 
-### Statistical Analysis
 
-Descriptive statistics were computed to summarize total injuries and injury types by occupation type. Proportional rates of falls and median days away from work were calculated to assess severity. Data were visualized using bar plots and boxplots in `ggplot2`.
 
-Limitations include potential underreporting of injuries and ambiguity in occupation classification. Future studies could incorporate more granular occupational data or employer-specific logs for improved accuracy.
+```{r echo=FALSE}
+ggplot(clean_data, aes(x = MedianDays, fill = IndustryType)) +
+  geom_density(alpha = 0.5) +
+  facet_wrap(~IndustryType, scales = "free") +
+  labs(title = "Figure 3: Distribution of Median Days Missed by Industry Type",
+       x = "Median Days Missed",
+       y = "Density") +
+  theme_minimal()
+```
+Figure 3 illustrates the density plots of median days missed for both industry types.
+
+The distribution for both groups is heavily right-skewed, indicating that while most injuries result in relatively few days missed, a subset of cases involves substantially longer recovery periods — particularly in the service-providing sector, where outliers extended up to 179 days.
+
+```{r echo=FALSE}
+# Calculate medians for annotation
+medians <- clean_data %>%
+  group_by(IndustryType) %>%
+  summarise(Median = median(MedianDays, na.rm = TRUE))
+
+
+
+# Calculate median days by industry type
+medians <- clean_data %>%
+  group_by(IndustryType) %>%
+  summarise(MedianDays = median(MedianDays, na.rm = TRUE))
+
+
+# Run Wilcoxon rank-sum test
+wilcox_result <- wilcox.test(MedianDays ~ IndustryType, data = clean_data)
+#print(wilcox_result)
+
+# Boxplot comparison
+ggplot(clean_data, aes(x = IndustryType, y = MedianDays, fill = IndustryType)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(
+    title = "Figure 4: Comparison of Median Days Missed (R65 Data)",
+    x = "Industry Type",
+    y = "Median Days Missed"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+Figure 4 displays a boxplot comparing the distribution of median days missed between service-providing and goods-producing workers.
+
+As shown in Figure 4, the distribution of days missed for service-providing industries appears more spread out, with a longer tail of higher values. A Wilcoxon rank-sum test formally tests the median difference, which does not assume normality. A statistically strong difference in median days between industries was found.
+
+- **W = 397560, p-value < 2.2e-16**
+
+

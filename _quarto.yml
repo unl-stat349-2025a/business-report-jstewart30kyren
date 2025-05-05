@@ -12,7 +12,7 @@ book:
     - Introduction.qmd
     - Methods.qmd
     - Results.qmd
-    - Conclusion.qmd
+    - Discussion.qmd
     - references.qmd
   appendices:
     - Data Documentation.qmd

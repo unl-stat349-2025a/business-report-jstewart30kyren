@@ -1,20 +1,21 @@
 ---
 title: "Executive Summary"
+bibliography: references.bib
 ---
 
-This report analyses workplace injury trends among office and non-office workers due to growing concerns about the safety of office environments. While non-office workers, such as those in manufacturing and industrial roles, experience significantly more workplace injuries, approximately 1.6 million more cases, office workers are not exempt from serious risks.
+This report analyzes workplace injury trends among office and non-office workers due to growing concerns about the safety of office environments. While non-office workers, such as those in manufacturing and industrial roles, experience a significantly higher proportion of workplace injuries, approximately eighteen percent more, office workers are not exempt from serious risks.
 
-Office workers accounted for over 630,000 injury cases annually, with a higher proportional rate of falls (.22) compared to non-office workers (.19). Additionally, when office workers do fall, the injuries tend to be more severe, resulting in longer recovery times averaging over 50 days longer away from work than non-office workers. These findings suggest that office injuries, mainly due to falls and ergonomic issues, are a notable operational and financial concern.
+Office workers accounted for just under forty-one percent of injury cases bi-annually. Additionally, when office workers get injured, the injuries are more severe, resulting in longer recovery times, averaging five days longer away from work than non-office workers. These findings suggest that office injuries are notable operational and financial concerns.
 
-Despite these findings, underreporting of employee injuries and the amount of sector oversight should be considered when looking at the results. However, the evidence does support the need for improved office safety protocols.
+Despite these findings, underreporting of employee injuries and the amount of sector oversight should be considered when looking at the results. However, the evidence does support the need for improvement in both office and non-office safety protocols.
 
 # Key Recommendations: {.unnumbered}
+
+-   Provide regular training on injury reporting and safe practices for office and non-office workers.
 
 -   Conduct ergonomic assessments for office workstations (e.g., improving chair comfort)
 
 -   Implement fall prevention strategies (e.g., cord management, slip-resistant flooring, adding elevators).
-
--   Provide regular training on injury reporting and safe office practices.
 
 -   Create health-first policies encouraging workers to eat healthy and exercise to mitigate injury risks.
 

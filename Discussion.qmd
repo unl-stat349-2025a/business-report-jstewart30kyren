@@ -1,0 +1,14 @@
+---
+title: "Discussion"
+format: html
+---
+
+The findings from this analysis carry important implications for workplace safety planning and policy development. The analysis confirms that non-office workers experience a significantly higher proportion (over 59%) of total injuries compared to office workers. However, office workers still represent a substantial share (nearly 41%) of injury cases. This percentage challenges assumptions that office environments are inherently "safe" and supports the case for proactive injury prevention measures even in low-risk settings.
+
+From a policy perspective, this suggests that injury prevention efforts should not exclusively target industrial environments. The relative share of injuries in office settings — nearly half — warrants attention. Interventions might include ergonomic workstation design, slip/trip/fall prevention campaigns, and training to reduce repetitive strain injuries, which are common in inactive occupations. Creating health-first policies encouraging workers to eat healthier and exercise more could mitigate injury risks.
+
+Regarding injury severity, the results revealed that injuries in service-providing industries tend to result in more days missed than those in goods-producing sectors. The results are somewhat odd, given the assumption that physically intensive jobs (typically goods-producing) would lead to more serious injuries. However, it is plausible that less active people have to take longer to come back from injuries. Alternatively, the difference might reflect reporting behavior, insurance claim policies, or access to leave.
+
+The significant difference in severity is supported by both descriptive statistics and a highly significant Wilcoxon test. Additionally, the shape of the distributions (Figure 3) shows a longer right tail in the service sector, reinforcing the need to pay attention to severe but less frequent injuries that may impact workforce continuity and productivity.
+
+Despite these findings, underreporting of employee injuries and the amount of sector oversight should be considered when looking at the results. However, the evidence supports taking a broad-based approach to safety that includes both office and non-office environments. While traditional manufacturing and industrial safety programs remain essential, service-based roles, including office settings, should not be overlooked. Further analysis could explore the causes of injuries by sector and role to guide more detailed, evidence-based interventions. 

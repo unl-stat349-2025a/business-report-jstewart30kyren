@@ -1,26 +1,36 @@
 ---
 title: "Methods"
 format: html
+bibliography: references.bib
 ---
 
-This analysis uses workplace injury data published by the U.S. Bureau of Labor Statistics (BLS) for the years 2021–2022. Data were drawn from three BLS Excel tables:
+# Methods
 
--   R10: Case and Demographic Characteristics – Nature of Injury
--   R64: Event or Exposure leading to Injury
--   R67: Occupation of Injured Worker
+This analysis uses publicly available workplace injury data from the U.S. Bureau of Labor Statistics (BLS) for 2021 and 2022. The datasets cover private, state, and local government wage and salary workers. All data are employer-reported under OSHA requirements.
 
-To compare risks across worker types, office workers are defined as Administrative Support, Professional, and Management Occupations. Non-office workers are defined as Production, Maintenance, Construction, Transportation roles.
+Injury data for the private sector are based on a mandatory survey sample of approximately 230,000 establishments, which ensures reliable estimates of occupational injuries and illnesses.
 
-Injury incidence counts and fall-specific injuries for each group and median days away from work, as a representation for severity, are calculated. The data are processed and analyzed using R to create summary statistics and figures for comparison.
+Data were drawn from two BLS tables:
 
-Data cleaning steps included:
+-   **R65:** *Detailed industry by number of days by case type*\
+    Reports the number of nonfatal injuries and illnesses involving days away from work (DAFW), restricted activity or job transfer (DJTR), or both (DART), sorted by industry and days missed [@bureauoflaborstatisticsDetailedIndustryNumber2023].
 
-1. Importing each Excel sheet
-2. Standardizing column names and formats
-3. Filtering for rows where injury data were available
-4. Mapping occupations to either "Office" or "Non-office"
+-   **R75:** *Detailed event or exposure by major industry division (Rate)*\
+    Provides annualized incidence rates per 10,000 full-time workers for DART, DAFW, and DJTR cases sorted by event/exposure and industry sector [@bureauoflaborstatisticsDetailedEventExposure2023].
 
+To compare injury risk and severity between occupational contexts, industries were grouped into two categories:
 
-Descriptive statistics were computed to summarize total injuries and injury types by occupation type. Proportional rates of falls and median days away from work were calculated to assess severity. Data were visualized using bar plots and boxplots in `ggplot2`.
+-   **Office workers** (service-providing sectors): e.g., information, financial services, professional and business services.
+-   **Non-office workers** (goods-producing sectors): e.g., natural resources and mining, construction, manufacturing.
 
+Injury rate counts and median days away from work were extracted as measures of frequency and severity. Fall-specific injuries were also isolated from total cases using relevant event classifications in the R75 dataset.
 
+Data processing and analysis are conducted in R. Cleaning steps included [@lkassambaraIdentifyRemoveDuplicate]
+
+-   Importing and merging Excel sheets
+-   Standardizing variable names and formats
+-   Filtering incomplete rows or missing injury data
+-   Mapping industries to office or non-office categories based on NAICS codes
+-   Creating summary tables stratified by worker type and injury type
+
+Visualizations are generated using the `ggplot2` package, including bar plots for injury incidence and boxplots for median days away from work. Descriptive statistics are used to examine injury rates and severities across the two groups.
