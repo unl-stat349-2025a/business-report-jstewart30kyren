@@ -4,8 +4,6 @@ format: html
 bibliography: references.bib
 ---
 
-# Methods
-
 This analysis uses publicly available workplace injury data from the U.S. Bureau of Labor Statistics (BLS) for 2021 and 2022. The datasets cover private, state, and local government wage and salary workers. All data are employer-reported under OSHA requirements.
 
 Injury data for the private sector are based on a mandatory survey sample of approximately 230,000 establishments, which ensures reliable estimates of occupational injuries and illnesses.
